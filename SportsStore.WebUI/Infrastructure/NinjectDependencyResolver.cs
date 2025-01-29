@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Ninject;
+using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Entities;
+using Moq;
+
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -26,9 +30,18 @@ namespace SportsStore.WebUI.Infrastructure
             return kernel.GetAll(serviceType);
         }
 
-        private AddBinding()
+        private void AddBinding()
         {
-            //we need to put bindings here
+            //mock repo call for product data
+            Mock<IProductsRepository> mockProdcutsRepo = new Mock<IProductsRepository>();
+            mockProdcutsRepo.Setup(m => m.Products).Returns(new List<Product>
+            {
+                new Product { Name = "Football", Price = 250, Description = "Team Sport" },
+                new Product { Name = "Soccer", Price = 180, Description = "Team Sport" },
+                new Product { Name = "Baseball", Price = 120, Description = "Team Sport" }
+            });
+
+            kernel.Bind<IProductsRepository>().ToConstant(mockProdcutsRepo.Object);
         }
     }
 }
