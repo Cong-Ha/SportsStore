@@ -36,9 +36,9 @@ namespace SportsStore.WebUI.Infrastructure
             Mock<IProductsRepository> mockProdcutsRepo = new Mock<IProductsRepository>();
             mockProdcutsRepo.Setup(m => m.Products).Returns(new List<Product>
             {
-                new Product { Name = "Football", Price = 250, Description = "Team Sport" },
-                new Product { Name = "Soccer", Price = 180, Description = "Team Sport" },
-                new Product { Name = "Baseball", Price = 120, Description = "Team Sport" }
+                new Product { Name = "Football", Price = 250, Description = "Team Sport", Category = "" },
+                new Product { Name = "Soccer", Price = 180, Description = "Team Sport", Category = "Field sport" },
+                new Product { Name = "Baseball", Price = 120, Description = "Team Sport", Category = "Field sport" }
             });
 
             kernel.Bind<IProductsRepository>().ToConstant(mockProdcutsRepo.Object);
