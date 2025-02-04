@@ -7,6 +7,7 @@ using Ninject;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using Moq;
+using SportsStore.Domain.Concrete;
 
 
 namespace SportsStore.WebUI.Infrastructure
@@ -33,15 +34,17 @@ namespace SportsStore.WebUI.Infrastructure
         private void AddBinding()
         {
             //mock repo call for product data
-            Mock<IProductsRepository> mockProdcutsRepo = new Mock<IProductsRepository>();
-            mockProdcutsRepo.Setup(m => m.Products).Returns(new List<Product>
-            {
-                new Product { Name = "Football", Price = 250, Description = "Team Sport", Category = "" },
-                new Product { Name = "Soccer", Price = 180, Description = "Team Sport", Category = "Field sport" },
-                new Product { Name = "Baseball", Price = 120, Description = "Team Sport", Category = "Field sport" }
-            });
+            //Mock<IProductsRepository> mockProdcutsRepo = new Mock<IProductsRepository>();
+            //mockProdcutsRepo.Setup(m => m.Products).Returns(new List<Product>
+            //{
+            //    new Product { Name = "Football", Price = 250, Description = "Team Sport", Category = "" },
+            //    new Product { Name = "Soccer", Price = 180, Description = "Team Sport", Category = "Field sport" },
+            //    new Product { Name = "Baseball", Price = 120, Description = "Team Sport", Category = "Field sport" }
+            //});
 
-            kernel.Bind<IProductsRepository>().ToConstant(mockProdcutsRepo.Object);
+            //kernel.Bind<IProductsRepository>().ToConstant(mockProdcutsRepo.Object);
+
+            kernel.Bind<IProductsRepository>().To<ProductsRepository>();
         }
     }
 }
