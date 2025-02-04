@@ -1,3 +1,5 @@
+SET IDENTITY_INSERT [dbo].[Products] ON;
+
 MERGE INTO [dbo].[Products] AS target
 USING (VALUES
     (1, 'Wireless Mouse', 'Ergonomic wireless mouse with 2.4GHz connectivity', 'Electronics', 29.99),
@@ -40,8 +42,8 @@ USING (VALUES
     (38, 'Massage Gun', 'Deep tissue massage gun with 5 speed settings', 'Fitness', 129.99),
     (39, 'Air Fryer', '5.8-quart air fryer with digital touchscreen', 'Home Appliances', 99.99),
     (40, 'Wireless Keyboard', 'Slim wireless keyboard with quiet-touch keys', 'Electronics', 49.99)
-) AS source ([ProductId], [Name], [Description], [Category], [Price])
-ON target.[ProductId] = source.[ProductId]
+) AS source ([Id], [Name], [Description], [Category], [Price])
+ON target.[Id] = source.[Id]
 WHEN MATCHED THEN
     UPDATE SET
         target.[Name] = source.[Name],
@@ -49,5 +51,7 @@ WHEN MATCHED THEN
         target.[Category] = source.[Category],
         target.[Price] = source.[Price]
 WHEN NOT MATCHED THEN
-    INSERT ([ProductId], [Name], [Description], [Category], [Price])
-    VALUES (source.[ProductId], source.[Name], source.[Description], source.[Category], source.[Price]);
+    INSERT ([Id], [Name], [Description], [Category], [Price])
+    VALUES (source.[Id], source.[Name], source.[Description], source.[Category], source.[Price]);
+
+SET IDENTITY_INSERT [dbo].[Products] OFF;
