@@ -6,17 +6,17 @@
 
 @foreach (var p in Model.Products)
 {
-    <div>
-        <h3>Name = @p.Name</h3>
-        <h3>Desc = @p.Description</h3>
-        <h4>Price = $@p.Price</h4>
-        <h4>Category = @p.Category</h4>
-        ===============================
+    <div class="card p-3 bg-light text-dark mb-2">
+        <h3>
+            <strong>@p.Name</strong>
+            <span class="badge bg-primary float-end">@p.Price.ToString("c")</span>
+        </h3>
+        <span class="lead">@p.Description</span>
     </div>
 }
 
 @*Pagination Section*@
-<div class="pagination">
+<div class="btn-group float-end">
     @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new { page = x }))
 </div>
 
