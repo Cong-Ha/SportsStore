@@ -21,7 +21,7 @@ namespace SportsStore.WebUI.Controllers
         // GET: Product
 
         public int PageSize = 4;
-        public ViewResult List(int page = 1)
+        public ViewResult List(string category, int page = 1)
         {
             // Skip(int) - Ignores the specified number of items
             // and return a sequence starting at the item after the
@@ -31,6 +31,7 @@ namespace SportsStore.WebUI.Controllers
             ProductListViewModel model = new ProductListViewModel
             {
                 Products = productRepo.Products
+                    .Where(b => category == null || b.Category == category)
                     .OrderBy(p => p.Id)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize),
@@ -39,13 +40,10 @@ namespace SportsStore.WebUI.Controllers
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
                     TotalItems = productRepo.Products.Count()
-                }
+                },
+                CurrentCategory = category
             };
             return View(model);
         }
-        //public ViewResult List()
-        //{
-        //    return View(productRepo.Products);
-        //}
     }
 }
