@@ -6,17 +6,13 @@
 
 @foreach (var p in Model.Products)
 {
-    <div class="card p-3 bg-light text-dark mb-2">
-        <h3>
-            <strong>@p.Name</strong>
-            <span class="badge bg-primary float-end">@p.Price.ToString("c")</span>
-        </h3>
-        <span class="lead">@p.Description</span>
-    </div>
+    @Html.Partial("ProductSummary", p);
 }
 
 @*Pagination Section*@
 <div class="btn-group float-end">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new { page = x }))
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
 </div>
+
+
 

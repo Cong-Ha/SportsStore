@@ -21,7 +21,7 @@ USING (VALUES
     (17, 'Skateboard', '7-ply maple skateboard for tricks and cruising', 'Extreme Sports', 69.99),
     (18, 'Snowboard', 'All-mountain snowboard for intermediate riders', 'Winter Sports', 249.99),
     (19, 'Ski Goggles', 'Anti-fog ski goggles with UV protection', 'Winter Sports', 39.99),
-    (20, 'Swimming Goggles', 'Anti-fog, UV-protected swimming goggles', 'Swimming', 19.99),
+    (20, 'Swimming Goggles', 'Anti-fog, UV-protected swimming goggles', 'Water Sports', 19.99),
     (21, 'Cycling Helmet', 'Lightweight aerodynamic cycling helmet', 'Cycling', 59.99),
     (22, 'Mountain Bike', '21-speed mountain bike with shock absorption', 'Cycling', 499.99),
     (23, 'Camping Tent', '2-person waterproof camping tent with easy setup', 'Outdoor Gear', 89.99),
