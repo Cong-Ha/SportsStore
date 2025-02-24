@@ -20,7 +20,7 @@ namespace SportsStore.WebUI.Controllers
 
         // GET: Product
 
-        public int PageSize = 4;
+        public int PageSize = 2;
         public ViewResult List(string category, int page = 1)
         {
             // Skip(int) - Ignores the specified number of items
@@ -39,7 +39,9 @@ namespace SportsStore.WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = productRepo.Products.Count()
+                    TotalItems = category == null ? 
+                    productRepo.Products.Count() : 
+                    productRepo.Products.Where(p => p.Category == category).Count()
                 },
                 CurrentCategory = category
             };

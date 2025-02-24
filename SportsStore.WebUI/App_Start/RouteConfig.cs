@@ -22,15 +22,12 @@ namespace SportsStore.WebUI
                 page = 1
             });
 
-            //page 2 - list the specified page (in this case page 2)
-            //showing items from all categories
-            routes.MapRoute(null, "", new
+            routes.MapRoute(null, "Page{page}", new
             {
                 controller = "Product",
                 action = "List",
-                category = (string)null,
-            },
-            new { page = @"\d+"});
+                category = (string)null
+            }, new { page = @"\d+" });
 
             routes.MapRoute(null, "{category}", new
             {
