@@ -76,6 +76,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Concrete\SportsStoreDbContext.cs" />
     <Compile Include="Concrete\ProductsRepository.cs" />
+    <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
