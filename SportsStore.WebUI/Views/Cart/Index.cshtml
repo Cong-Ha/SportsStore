@@ -10,8 +10,9 @@
         <tr>
             <th>Quantity</th>
             <th>Item</th>
-            <th class="text-end">Price</th>
-            <th class="text-end">Subtotal</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+            <th class="text-center">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -22,18 +23,28 @@
                 <td>@line.Product.Name</td>
                 <td>@line.Product.Price.ToString("c")</td>
                 <td>@((line.Quantity * line.Product.Price).ToString("c"))</td>
+                <td class="d-flex justify-content-center">
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", line.Product.Id)
+                        @Html.HiddenFor(x => x.returnUrl)
+                        <input type="submit" class="btn btn-warning" value="Remove"  />
+                    }
+                </td>
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
+            <td></td>
             <td colspan="3" class="text-end">Total:</td>
-            <td class="text-end">@Model.cart.ComputeTotalValue().ToString("c")</td>
+            <td>@Model.cart.ComputeTotalValue().ToString("c")</td>
         </tr>
     </tfoot>
 </table>
 
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.returnUrl">Continue shopping</a>
+    @Html.ActionLink("Checkout now", "Checkout", null, new { @class = "btn btn-success" })
 </div>
 

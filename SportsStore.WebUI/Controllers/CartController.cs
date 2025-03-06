@@ -18,47 +18,45 @@ namespace SportsStore.WebUI.Controllers
             _prodRepo = productsRepository;
         }
 
-        //GET CART
-        public Cart GetCart()
-        {
-            Cart cart = (Cart)Session["Cart"];
-            if (cart == null )
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
-            return cart;
-        }
-
         //ADD TO CART
-        public RedirectToRouteResult AddToCart(int Id, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int Id, string returnUrl)
         {
             Product product = _prodRepo.Products.FirstOrDefault(p => p.Id == Id);
             if (product != null)
             {
-                GetCart().AddItem(product, 1);
+                cart.AddItem(product, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
         //REMOVE FROM CART
-        public RedirectToRouteResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
             Product product = _prodRepo.Products.FirstOrDefault(p => p.Id == productId);
-            if (product == null)
+            if (product != null)
             {
-                GetCart().RemoveLine(product);
+                cart.RemoveLine(product);
             }
-            return RedirectToRoute("Index", new { returnUrl });
+            return RedirectToAction("Index", new { returnUrl });
         }
 
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel 
-            { 
-                cart = GetCart(),
+            {
+                cart = cart,
                 returnUrl = returnUrl 
             });
+        }
+
+        public PartialViewResult Summary(Cart cart)
+        {
+            return PartialView(cart);
+        }
+
+        public ViewResult Checkout()
+        {
+            return View(new ShippingDetails());
         }
     }
 }
